@@ -1,0 +1,80 @@
+$color: #4cc1fa;
+$speed: 0.4;
+$size: 13px;
+
+* {
+  cursor: crosshair;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100dvh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.bullet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: $size;
+  height: $size;
+  background-color: red;
+  border-radius: 50%;
+  transition: top var(--duration) linear, left var(--duration) linear;
+  pointer-events: none;
+}
+
+.loader-wrapper {
+  padding: 200px;
+}
+
+.loader-wrapper:not(:hover) .loader {
+  animation: rotate 1.5s linear infinite;
+}
+
+.loader-wrapper:hover .loader div:first-child div {
+  background-color: red;
+  border-radius: 50% 0 0 50%;
+}
+
+.loader {
+  position: relative;
+  height: 75px;
+  width: 75px;
+
+  div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    & > div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: 15%;
+      width: $size;
+      height: $size;
+      border-radius: 50%;
+      background: $color;
+    }
+
+    @for $i from 1 through 8 {
+      &:nth-child(#{$i}) {
+        transform: rotate(#{45 * $i}deg);
+      }
+    }
+  }
+}
+
+@keyframes rotate {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
